@@ -34,7 +34,10 @@ app.get("/api/movie/:id", (req, res) => {
 })
 
 app.get("/api/movie-reviews", (req, res) => {
-    db.query('SELECT * FROM movies_db.reviews', function (err, results) {
+    db.query('SELECT movies.name, reviews.review FROM movies JOIN reviews ON movies.id = reviews.movie_id ', function (err, results) {
+        if (err) {
+            console.log(err)
+        }
         console.log("********* SELECT * FROM movies reviews")
         console.log(results);
         console.log("*********");
@@ -42,5 +45,5 @@ app.get("/api/movie-reviews", (req, res) => {
       });
       
 })
-
+// FROM movies_db.reviews JOIN movies ON movies.id = reviews.movie_id 
 app.listen(PORT, () => console.log(`Example app listening at http://localhost:${PORT}`));
